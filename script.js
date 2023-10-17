@@ -192,15 +192,7 @@ function updateBudgetSummary() {
         downloadCsv(csv, 'budget-summary.csv');
     });
 
-    // Export summary to PDF
-    exportSummaryPdfButton.addEventListener('click', () => {
-        html2canvas(budgetSummary).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'PNG', 10, 10);
-            pdf.save('budget-summary.pdf');
-        });
-    });
+    
 
     // Export transactions to CSV
     exportTransactionsCsvButton.addEventListener('click', () => {
@@ -211,14 +203,7 @@ function updateBudgetSummary() {
     });
 
     // Export transactions to PDF
-    exportTransactionsPdfButton.addEventListener('click', () => {
-        html2canvas(transactionTableBody).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'PNG', 10, 10);
-            pdf.save('transactions.pdf');
-        });
-    });
+   
 }
 
 // Download CSV file
@@ -234,30 +219,47 @@ function downloadCsv(csv, filename) {
     document.body.removeChild(link);
 }
 
-// Download PDF file
-exportSummaryPdfButton.addEventListener('click', () => {
-    const pdf = generateSummaryPdf();
-    downloadPdf(pdf, 'budget_summary.pdf');
+document.addEventListener("DOMContentLoaded", () => {
+    // Botón para guardar la primera sección
+    const $botonSeccion1 = document.querySelector("#export-summary-pdf");
+    $botonSeccion1.addEventListener("click", () => {
+        const $elementoParaConvertir = document.querySelector("#container"); // Selecciona la primera sección
+        guardarComoPDF($elementoParaConvertir);
+    });
+
+    // Botón para guardar la segunda sección
+    const $botonSeccion2 = document.querySelector("#export-transactions-pdf");
+    $botonSeccion2.addEventListener("click", () => {
+        const $elementoParaConvertir = document.querySelector("#container2"); // Selecciona la segunda sección
+        guardarComoPDF($elementoParaConvertir);
+    });
+
+    function guardarComoPDF($elementoParaConvertir) {
+        html2pdf()
+            .set({
+                margin: 1,
+                filename: 'documento.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 1,
+                    letterRendering: true,
+                },
+                jsPDF: {
+                    unit: "in",
+                    format: "a3",
+                    orientation: 'portrait'
+                }
+            })
+            .from($elementoParaConvertir)
+            .save()
+            .catch(err => console.log(err));
+    }
 });
 
-exportTransactionsPdfButton.addEventListener('click', () => {
-    const pdf = generateTransactionsPdf();
-    downloadPdf(pdf, 'budget_transactions.pdf');
-});
 
-// Initialize transaction form category select options
-updateTransactionFormCategorySelectOptions();
-function downloadPdf(pdf, filename) {
-    const pdfBlob = new Blob([pdf], { type: 'text/pdf;charset=utf-8;' });
-    const url = URL.createObjectURL(pdfBlob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
 
 
 // Initialize transaction form category select options
