@@ -202,12 +202,8 @@ function updateBudgetSummary() {
         downloadCsv(csv, 'transactions.csv');
     });
 
-    // Export transactions to PDF
-   
-}
-
-// Download CSV file
-function downloadCsv(csv, filename) {
+   // Download CSV file
+    function downloadCsv(csv, filename) {
     const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(csvBlob);
     const link = document.createElement('a');
@@ -217,6 +213,8 @@ function downloadCsv(csv, filename) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
