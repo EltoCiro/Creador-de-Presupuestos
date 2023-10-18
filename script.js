@@ -77,10 +77,10 @@ formTransaction.addEventListener('submit', (e) => {
     transactions.push(transaction);
 
     // Update category expenses or income and budget
-    if (transactionType === 'expense') {
+    if (transactionType === 'Gasto') {
         category.expenses += transactionAmount;
         category.budget -= transactionAmount;
-    } else if (transactionType === 'income') {
+    } else if (transactionType === 'Ingreso') {
         category.income += transactionAmount;
         category.budget += transactionAmount;
     }
@@ -138,10 +138,10 @@ function updateTransactionTable() {
         dateCell.textContent = transaction.date;
         amountCell.textContent = transaction.amount.toFixed(2);
 
-        if (transaction.type === 'expense') {
-            amountCell.classList.add('expense');
-        } else if (transaction.type === 'income') {
-            amountCell.classList.add('income');
+        if (transaction.type === 'Gasto') {
+            amountCell.classList.add('Gasto');
+        } else if (transaction.type === 'Ingreso') {
+            amountCell.classList.add('Ingreso');
         }
 
         row.appendChild(typeCell);
@@ -181,7 +181,7 @@ function updateBudgetSummary() {
 
         // Check if budget limit is reached
         if (category.budget <= 0) {
-            alert(`Limite presupuestal alcanzado para la categoría "${category.name}"`);
+            alert(`Limite presupuestal de la categoría sobrepasado "${category.name}"`);
         }
     });
     // Export summary to CSV
