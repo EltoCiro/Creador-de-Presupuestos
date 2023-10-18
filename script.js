@@ -262,3 +262,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Initialize transaction form category select options
 updateTransactionFormCategorySelectOptions();
+
+
+//modo oscuro
+const darkModeToggle = document.querySelector('#dark-mode-toggle');
+
+darkModeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-on');
+  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-off');
+});

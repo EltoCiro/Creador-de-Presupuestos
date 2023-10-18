@@ -1,0 +1,112 @@
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #f2f2f2;
+  }
+  
+  .dark-mode header {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode footer {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode h1 {
+    color: #fff;
+  }
+  
+  .dark-mode section {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode label {
+    color: #fff;
+  }
+  
+  .dark-mode input[type="text"],
+  .dark-mode input[type="number"],
+  .dark-mode input[type="date"],
+  .dark-mode select {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #fff;
+  }
+  
+  .dark-mode input[type="text"]:focus,
+  .dark-mode input[type="number"]:focus,
+  .dark-mode input[type="date"]:focus,
+  .dark-mode select:focus {
+    border-color: #fff;
+  }
+  
+  .dark-mode button[type="submit"] {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .dark-mode button[type="submit"]:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .dark-mode table {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode th,
+  .dark-mode td {
+    border: 1px solid #fff;
+  }
+  
+  .dark-mode th {
+    background-color: #1abc9c;
+    color: #fff;
+  }
+  
+  .dark-mode .income {
+    color: #2ecc71;
+  }
+  
+  .dark-mode .expense {
+    color: #e74c3c;
+  }
+  
+  .dark-mode #modo {
+    color: orange;
+  }
+  
+  /* Estilos adicionales para los elementos del formulario */
+  .dark-mode select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+    padding: 0.5em;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .dark-mode select:focus {
+    outline: none;
+    border-color: #fff;
+  }
+  
+  .dark-mode option {
+    background-color: #333;
+    color: #fff;
+  }
