@@ -184,6 +184,7 @@ function updateBudgetSummary() {
             alert(`Limite presupuestal de la categoría sobrepasado "${category.name}"`);
         }
     });
+
     // Export summary to CSV
     exportSummaryCsvButton.addEventListener('click', () => {
         const csv = categories.map(category => {
@@ -191,8 +192,6 @@ function updateBudgetSummary() {
         }).join('\n');
         downloadCsv(csv, 'budget-summary.csv');
     });
-
-    
 
     // Export transactions to CSV
     exportTransactionsCsvButton.addEventListener('click', () => {
@@ -202,20 +201,83 @@ function updateBudgetSummary() {
         downloadCsv(csv, 'transactions.csv');
     });
 
-   // Download CSV file
+    // Download CSV file
     function downloadCsv(csv, filename) {
-    const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(csvBlob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+        const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(csvBlob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
-
 }
+
+// Get form elements
+const dateForm = document.getElementById('date-form');
+const startDateInput = document.getElementById('start-date');
+const endDateInput = document.getElementById('end-date');
+
+// Add transaction
+dateForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Get start and end dates
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+
+    // Filter transactions by date range
+    const filteredTransactions = transactions.filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        return transactionDate >= startDate && transactionDate <= endDate;
+    });
+
+    // Update transaction table
+    const transactionTableBody = document.querySelector('#transaction-table tbody');
+    transactionTableBody.innerHTML = '';
+    filteredTransactions.forEach(transaction => {
+        const row = document.createElement('tr');
+        const typeCell = document.createElement('td');
+        const categoryCell = document.createElement('td');
+        const descriptionCell = document.createElement('td');
+        const dateCell = document.createElement('td');
+        const amountCell = document.createElement('td');
+
+        typeCell.textContent = transaction.type;
+        categoryCell.textContent = transaction.category;
+        descriptionCell.textContent = transaction.description;
+        dateCell.textContent = transaction.date;
+        amountCell.textContent = transaction.amount.toFixed(2);
+
+        if (transaction.type === 'Gasto') {
+            amountCell.classList.add('Gasto');
+        } else if (transaction.type === 'Ingreso') {
+            amountCell.classList.add('Ingreso');
+        }
+
+        row.appendChild(typeCell);
+        row.appendChild(categoryCell);
+        row.appendChild(descriptionCell);
+        row.appendChild(dateCell);
+        row.appendChild(amountCell);
+
+        transactionTableBody.appendChild(row);
+    });
+});
+
+// Initialize transaction form category select options
+updateTransactionFormCategorySelectOptions();
+
+//modo oscuro
+const darkModeToggle = document.querySelector('#dark-mode-toggle');
+
+darkModeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-on');
+  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-off');
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     // Botón para guardar la primera sección
@@ -255,20 +317,4 @@ document.addEventListener("DOMContentLoaded", () => {
             .save()
             .catch(err => console.log(err));
     }
-});
-
-
-
-
-// Initialize transaction form category select options
-updateTransactionFormCategorySelectOptions();
-
-
-//modo oscuro
-const darkModeToggle = document.querySelector('#dark-mode-toggle');
-
-darkModeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-on');
-  darkModeToggle.querySelector('i').classList.toggle('fa-toggle-off');
 });

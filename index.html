@@ -63,6 +63,13 @@
         </section>
         <section id="container2">
             <h2>Transacciones</h2>
+            <form id="date-form">
+                <label for="start-date">Fecha de inicio:</label>
+                <input type="date" id="start-date" name="start-date">
+                <label for="end-date">Fecha de fin:</label>
+                <input type="date" id="end-date" name="end-date">
+                <button type="submit">Mostrar transacciones</button>
+            </form>
             <table id="transaction-table">
                 <thead>
                     <tr>
@@ -73,7 +80,8 @@
                         <th>Monto</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                </tbody>
             </table>
             <button class="button" id="export-transactions-csv">Exportar CSV</button>
             <button class="button" id="export-transactions-pdf">Exportar PDF</button>
